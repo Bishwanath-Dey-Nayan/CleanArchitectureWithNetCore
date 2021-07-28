@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Employee.Core\Employee.Core.csproj" />
+    <ProjectReference Include="..\Employee.Infrastructure\Employee.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handlers\QueryHandlers\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+</Project>
