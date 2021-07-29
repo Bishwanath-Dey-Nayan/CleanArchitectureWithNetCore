@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -13,11 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Employee.Core\Employee.Core.csproj" />
     <ProjectReference Include="..\Employee.Infrastructure\Employee.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Handlers\QueryHandlers\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

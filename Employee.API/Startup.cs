@@ -1,7 +1,15 @@
+using Employee.Application.Handlers.CommandHandlers;
+using Employee.Core.Repositories;
+using Employee.Core.Repositories.Base;
+using Employee.Infrastructure.Data;
+using Employee.Infrastructure.Repositories;
+using Employee.Infrastructure.Repositories.Base;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +18,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Employee.API
@@ -28,10 +37,16 @@ namespace Employee.API
         {
 
             services.AddControllers();
+            services.AddDbContext<EmployeeContext>(
+                 m => m.UseSqlServer(Configuration.GetConnectionString("EmployeeDB")), ServiceLifetime.Singleton);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee.API", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(CreateEmployeeHandler).GetTypeInfo().Assembly);
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

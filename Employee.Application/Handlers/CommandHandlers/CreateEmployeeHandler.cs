@@ -1,4 +1,5 @@
 ﻿using Employee.Application.Commands;
+using Employee.Application.Mapper;
 using Employee.Application.Responses;
 using Employee.Core.Repositories;
 using MediatR;
@@ -20,9 +21,16 @@ namespace Employee.Application.Handlers.CommandHandlers
         {
             _employeeRepo = employeeRepository;
         }
-        public Task<EmployeeResponse> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
+        public async Task<EmployeeResponse> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var employeeEntitiy = EmployeeMapper.Mapper.Map<Employee.Core.Entities.Employee>(request);
+            if(employeeEntitiy is null)
+            {
+                throw new ApplicationException("Issue with mapper");
+            }
+            var newEmployee = await _employeeRepo.AddAsync(employeeEntitiy);
+            var employeeResponse = EmployeeMapper.Mapper.Map<EmployeeResponse>(newEmployee);
+            return employeeResponse;
         }
     }
 }

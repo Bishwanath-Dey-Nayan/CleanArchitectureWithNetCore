@@ -12,7 +12,7 @@ namespace Employee.Core.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int EmployeeId { get; set; }
+        public Int64 EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
